@@ -3,39 +3,21 @@ import {View, TouchableOpacity, Image, Text, StyleSheet} from 'react-native';
 
 export default function DogItem({breed, image, onPressDogItem}) {
   return (
-    <View
-      style={{
-        backgroundColor: '#E7D2CC',
-        borderRadius: 10,
-        marginHorizontal: 10,
-      }}>
+    <View style={styles.container}>
       <TouchableOpacity
         onPress={onPressDogItem}
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}>
-        <View style={{flex: 1}}>
+        style={styles.imageMainContainer}>
+        <View style={styles.imageContainer}>
           <Image
             source={{
               uri: image,
             }}
-            style={{width: 100, height: 100}}
+            style={styles.image}
           />
         </View>
 
-        <View style={{flex: 1, alignItems: 'flex-start'}}>
-          <Text
-            style={{
-              fontSize: 20,
-              paddingLeft: 16,
-              textTransform: 'uppercase',
-              alignItems: 'center',
-              color: '#647C90',
-            }}>
-            {breed}
-          </Text>
+        <View style={styles.dogTextContainer}>
+          <Text style={styles.dogText}>{breed}</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -43,18 +25,29 @@ export default function DogItem({breed, image, onPressDogItem}) {
 }
 
 const styles = StyleSheet.create({
-  itemSeparator: {height: 10},
-  listFooter: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 90,
-  },
-  search: {
-    height: 40,
-    backgroundColor: '#e0dede',
-    margin: 10,
+  container: {
+    backgroundColor: '#E7D2CC',
     borderRadius: 10,
-    paddingLeft: 5,
+    marginHorizontal: 10,
+  },
+  imageMainContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  imagecontainer: {flex: 1},
+  image: {
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+    width: 100,
+    height: 100,
+  },
+  dogTextContainer: {flex: 1, alignItems: 'flex-start'},
+  dogText: {
+    fontSize: 20,
+    paddingLeft: 16,
+    textTransform: 'uppercase',
+    alignItems: 'center',
+    color: '#647C90',
   },
 });

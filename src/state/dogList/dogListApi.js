@@ -1,7 +1,5 @@
 import {getAllBreedsAsync, getRandomImageByBreedAsync} from '../../utils/api';
 
-// export const dogListApi = () => getAllBreedsAsync();
-
 export const dogListApi = async () => {
   let breedNames = [];
 

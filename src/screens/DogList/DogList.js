@@ -1,14 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {
-  FlatList,
-  TextInput,
-  Text,
-  ActivityIndicator,
-  View,
-  StyleSheet,
-  Platform,
-  AppState,
-} from 'react-native';
+import {FlatList, TextInput, Text, ActivityIndicator, View} from 'react-native';
 import DogItem from './DogItem/DogItem';
 import {useSelector, useDispatch} from 'react-redux';
 import {
@@ -45,23 +36,20 @@ const DogList = () => {
   }, []);
 
   const RenderFooterText = () =>
-    hasReachedEndOfList ? (
+    hasReachedEndOfList && !search ? (
       <View style={styles.listFooter}>
         <Text>End of the dog list</Text>
       </View>
     ) : null;
 
-  const Loader = () => (
-    <View
-      style={{
-        borderWidth: 1,
-      }}>
+  const RenderLoader = () => (
+    <View style={styles.loaderContainer}>
       {isNoMtchingSearch ? (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <View style={styles.noMatchingSearchContainer}>
           <Text>No matching dogs</Text>
         </View>
       ) : isEmptyDogList ? (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <View style={styles.emptyListContainer}>
           <Text>Empty List of DOGS</Text>
         </View>
       ) : (
@@ -70,51 +58,45 @@ const DogList = () => {
     </View>
   );
 
+  const RenderTextInput = () => (
+    <View style={styles.textInputContainer}>
+      <TextInput
+        autoFocus={search !== ''}
+        style={styles.search}
+        value={search}
+        onChangeText={text => {
+          setSearch(text);
+          setFilteredList(
+            dogListData?.filter(
+              item => item.breed.toLowerCase().indexOf(text.toLowerCase()) > -1,
+            ),
+          );
+        }}
+        placeholder="Search"
+      />
+    </View>
+  );
+
   return (
-    <View style={{borderWidth: 1, flex: 1, marginTop: '20%'}}>
+    <View style={styles.container}>
       <FlatList
         data={search === '' ? dogListData : filteredList}
         ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
-        ListHeaderComponent={
-          <TextInput
-            style={styles.search}
-            value={search}
-            onChangeText={text => {
-              setSearch(text);
-              setFilteredList(
-                dogListData?.filter(
-                  item =>
-                    item.breed.toLowerCase().indexOf(text.toLowerCase()) > -1,
-                ),
-              );
-            }}
-            placeholder="Search"
-          />
-        }
+        ListHeaderComponent={<RenderTextInput />}
         ListFooterComponent={<RenderFooterText />}
         keyExtractor={(item, index) => item?.breed + index}
-        renderItem={({item}) => {
-          return (
-            <DogItem
-              breed={item.breed}
-              image={item.image}
-              onPressDogItem={() => onPressDogItem(item)}
-            />
-          );
-        }}
-        ListEmptyComponent={<Loader />}
-        // maxToRenderPerBatch={2}
-        // onEndReachedThreshold={0.1}
-        // initialNumToRender={8}
-        // maxToRenderPerBatch={2}
-        // onEndReachedThreshold={0.1}
-        // onMomentumScrollBegin={this.onMomentumScrollBegin}
+        renderItem={({item}) => (
+          <DogItem
+            breed={item.breed}
+            image={item.image}
+            onPressDogItem={() => onPressDogItem(item)}
+          />
+        )}
+        ListEmptyComponent={<RenderLoader />}
         onEndReached={() => setHasReachedEndOfList(true)}
       />
     </View>
   );
 };
-
-
 
 export default DogList;
