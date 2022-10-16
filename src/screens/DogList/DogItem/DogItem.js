@@ -37,12 +37,11 @@ const styles = StyleSheet.create({
   },
   imagecontainer: {flex: 1},
   image: {
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
+    borderRadius: 10,
     width: 100,
     height: 100,
   },
-  dogTextContainer: {flex: 1, alignItems: 'flex-start'},
+  dogTextContainer: {flex: 1, alignItems: 'flex-end', marginRight: 30},
   dogText: {
     fontSize: 20,
     paddingLeft: 16,

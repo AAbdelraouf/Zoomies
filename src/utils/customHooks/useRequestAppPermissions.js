@@ -45,7 +45,7 @@ export const useRequestAppPermissions = () => {
         requestNotifications(['alert', 'sound']);
       }
 
-      // TODO: to be activated when want user to chage push notifcation settings //
+      // TODO: to be activated when want user to change push notification settings //
       //   if (status === RESULTS.BLOCKED) {
       //     Alert.alert(
       //       'Zoomies needs notification access',
