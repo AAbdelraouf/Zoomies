@@ -7,7 +7,6 @@ const sagaMiddleware = createSagaMiddleware();
 const sagaMiddlewares = [sagaMiddleware];
 
 if (__DEV__) {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const createDebugger = require('redux-flipper').default;
   sagaMiddlewares.push(createDebugger());
 }
