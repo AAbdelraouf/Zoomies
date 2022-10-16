@@ -1,8 +1,7 @@
 # Zoomies
 
-From root directory run npm install
+- From the root directory (inside Zommies folder) run `npm install`
 Then
-Go inside ios/ directory and run pod install
-Then
-Go back to root directory and run npx react-native run-ios
-
+- Go to ios/ directory and run `bundle install` and then `pod install`
+- Then head back to root directory and run `npx react-native run-ios`
+  
